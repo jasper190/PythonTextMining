@@ -1,0 +1,23 @@
+After capturing the regular expressions (Regex) , process the different types of dates differently,
+
+Type 1, for the MM-DD-YY or MM-DD-YYYY type
+Step 1. If it is YY, change it to YYYY
+Step 2. Pd.to_datetime()
+;
+Type 2, for the dd-MON-YYYY or MON-dd-YYYY formats , example 21 Jan 2019  or June 01 2011
+Step1.  Trim month to  3 letter format,[ Jan, Feb, Mar, … ] ,and combine the two type 2 day columns, type a and b int one column , Day_type2_stp1
+Step2. Assuming those without the day of month to actually fall on the first day, fill with “01”
+Step3. Convert to date time object
+;
+Type 3,  for MM/YYYY type , example  01/2014
+Step1. Concatenate “01/” with the month year format, due to base assumption they occur on the first day of the month
+Step2. Convert to date time object
+;
+
+Type4 , only YYYY
+Step1. Concatenate ‘01/01’ with year, for 1st January <Year>
+Step2. Convert to datetime object
+
+;
+
+Finally, we take the first entry that is non null among the 4 final columns, using backfill
